@@ -15,6 +15,7 @@
  *
  *   See <http://www.opensource.org/licenses/bsd-license>
  */
+#include <WinBase.h>
 
 #include "opencv2/core.hpp"
 #include "opencv2/face.hpp"
@@ -29,6 +30,11 @@
 using namespace cv;
 using namespace cv::face;
 using namespace std;
+
+static void lockWindows()
+{
+    WinExec("rundll32.exe user32.dll,LockWorkStation",0);
+}
 
 static void read_csv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';') {
     std::ifstream file(filename.c_str(), ifstream::in);
@@ -139,6 +145,9 @@ int main(int argc, const char *argv[]) {
 			double confidence;int prediction;
 			model->predict(face_resized, prediction, confidence);
 			cout << confidence <<endl;
+			if(confidence!=1){
+				lockWindows();
+			}
             // And finally write all we've found out to the original image!
             // First of all draw a green rectangle around the detected face:
             rectangle(original, face_i, Scalar(0, 255,0), 1);
