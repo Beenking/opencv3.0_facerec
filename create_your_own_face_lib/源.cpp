@@ -30,17 +30,18 @@ using namespace std;
 int main(int argc, const char *argv[]) {
 	// Check for valid command line arguments, print usage
 	// if no arguments were given.
-	if (argc != 4) {
+	if (argc != 5) {
 		cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/face_filder> </path/to/device id>" << endl;
 		cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection." << endl;
-		cout << "\t </path/to/csv.ext> -- Path to the face folder that you want to retain the faces picture." << endl;
+		cout << "\t </path/to/folder> -- Path to the face folder that you want to retain the faces picture." << endl;
 		cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
 		exit(1);
 	}
 	// Get the path:
 	string fn_haar = string(argv[1]);
 	string face_lib = string(argv[2]);
-	int deviceId = atoi(argv[3]);
+	int face_id = atoi(argv[3]);
+	int deviceId = atoi(argv[4]);
 
 	// ofstream
 	ofstream output("../data/face_cap.txt");
@@ -86,7 +87,7 @@ int main(int argc, const char *argv[]) {
 			string s = face_lib + (string)c + ".jpg";
 			imwrite(s, face_resized);
 			cout << "Captruing the #" << num << "face" << endl;
-			output << s << ";" << 101 << endl;
+			output << s << ";" << face_id << endl;
 			num++;
 
 			// First of all draw a green rectangle around the detected face:

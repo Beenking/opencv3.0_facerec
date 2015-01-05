@@ -32,8 +32,8 @@ using namespace cv;
 using namespace cv::face;
 using namespace std;
 
-const int ADMIN_ID = 8;
-const int LIST_BUFFER = 40;
+const int ADMIN_ID = 88;
+const int LIST_BUFFER = 20;
 
 static void lockComputer()
 {
@@ -98,7 +98,7 @@ int main(int argc, const char *argv[]) {
 	Ptr<FaceRecognizer> model = createFisherFaceRecognizer();
 	// Load a exsiting model file. Ohterwise, traing an saving it.
 	try{
-		model->load("../data/face_model1.xml");
+		model->load("../data/face_model.xml");
 	} catch(cv::Exception& e) {
 		cout << "Load model failed .Training now...Just wait a moment..." << endl;
 		model->train(images, labels);
