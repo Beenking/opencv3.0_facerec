@@ -5,6 +5,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "facerec_demo.cpp", "facerec
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "face_recognition_in_video_with_opencv", "face_recognition_in_video_with_opencv\face_recognition_in_video_with_opencv.vcxproj", "{5B3DB30E-4CC5-4A0A-B594-D4E69B559C86}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{6F36A4B5-75D7-46F2-B2EE-C9F65FA66700}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "create_your_own_face_lib", "create_your_own_face_lib\create_your_own_face_lib.vcxproj", "{0DBD1607-BD69-42E8-97CA-64C0D2243A2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +23,14 @@ Global
 		{5B3DB30E-4CC5-4A0A-B594-D4E69B559C86}.Debug|Win32.Build.0 = Debug|Win32
 		{5B3DB30E-4CC5-4A0A-B594-D4E69B559C86}.Release|Win32.ActiveCfg = Release|Win32
 		{5B3DB30E-4CC5-4A0A-B594-D4E69B559C86}.Release|Win32.Build.0 = Release|Win32
+		{6F36A4B5-75D7-46F2-B2EE-C9F65FA66700}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6F36A4B5-75D7-46F2-B2EE-C9F65FA66700}.Debug|Win32.Build.0 = Debug|Win32
+		{6F36A4B5-75D7-46F2-B2EE-C9F65FA66700}.Release|Win32.ActiveCfg = Release|Win32
+		{6F36A4B5-75D7-46F2-B2EE-C9F65FA66700}.Release|Win32.Build.0 = Release|Win32
+		{0DBD1607-BD69-42E8-97CA-64C0D2243A2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0DBD1607-BD69-42E8-97CA-64C0D2243A2A}.Debug|Win32.Build.0 = Debug|Win32
+		{0DBD1607-BD69-42E8-97CA-64C0D2243A2A}.Release|Win32.ActiveCfg = Release|Win32
+		{0DBD1607-BD69-42E8-97CA-64C0D2243A2A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
