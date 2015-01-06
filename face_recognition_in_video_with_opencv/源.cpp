@@ -32,8 +32,7 @@ using namespace cv;
 using namespace cv::face;
 using namespace std;
 
-const int ADMIN_ID = 88;
-const int LIST_BUFFER = 20;
+const int LIST_BUFFER = 30;
 
 static void lockComputer()
 {
@@ -62,47 +61,55 @@ int main(int argc, const char *argv[]) {
 
 	// Check for valid command line arguments, print usage
 	// if no arguments were given.
-	if (argc != 4) {
-		cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.ext> </path/to/device id>" << endl;
+	if (argc < 5) {
+		cout << "\t\t Please test and learn. Donnt use for commerial purpose."<< endl;
+		cout << "\t Any question about the exe. feel free email me bestheart@qq.com." << endl;
+		cout << endl;
+		cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/csv.txt> <admin face id> <device id> </path/to/face_model.xml>" << endl;
 		cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection." << endl;
-		cout << "\t </path/to/csv.ext> -- Path to the CSV file with the face database." << endl;
+		cout << "\t </path/to/csv.txt> -- Path to the CSV file with the face database." << endl;
+		cout << "\t <face id> -- The face id to identify who you are." << endl;
 		cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
+		cout << "\t </path/to/face_mdoel.xml> -- This is an optional arg. Traing when no chosed. Otherwise just load it." << endl << endl;
+		cout << "\t for exampe: face_recognition.exe data/haarcascade_frontalface_default.xml data/csv.txt 110 0 (data/face_model.xml)" << endl << endl;
 		exit(1);
 	}
 
 	// Get the path to your CSV:
 	string fn_haar = string(argv[1]);
 	string fn_csv = string(argv[2]);
-	int deviceId = atoi(argv[3]);
+	int admin_face_id = atoi(argv[3]);
+	int deviceId = atoi(argv[4]);
 
 	// These vectors hold the images and corresponding labels:
 	vector<Mat> images;
 	vector<int> labels;
 
-	// Read in the data (fails if no valid input filename is given, but you'll get an error message):
-	try {
-		read_csv(fn_csv, images, labels);
-	} catch (cv::Exception& e) {
-		cerr << "Error opening file \"" << fn_csv << "\". Reason: " << e.msg << endl;
-		// nothing more we can do
-		exit(1);
-	}
-
 	// Get the height from the first image. We'll need this
 	// later in code to reshape the images to their original
 	// size AND we need to reshape incoming faces to this size:
-	int im_width = images[0].cols;
-	int im_height = images[0].rows;
+	int im_width = 92;
+	int im_height = 112;
 
 	// Create a FaceRecognizer and train it on the given images:
 	Ptr<FaceRecognizer> model = createFisherFaceRecognizer();
 	// Load a exsiting model file. Ohterwise, traing an saving it.
-	try{
-		model->load("../data/face_model.xml");
-	} catch(cv::Exception& e) {
-		cout << "Load model failed .Training now...Just wait a moment..." << endl;
+	if(argc==5){
+		cout << " Training now...Just wait a moment..." << endl;
+		// Read in the data (fails if no valid input filename is given, but you'll get an error message):
+		try {
+			read_csv(fn_csv, images, labels);
+		} catch (cv::Exception& e) {
+			cerr << "Error opening file \"" << fn_csv << "\". Reason: " << e.msg << endl;
+			// nothing more we can do
+			exit(1);
+		}
 		model->train(images, labels);
-		model->save("../data/face_model.xml");
+		cout << " Training completed" << endl;
+		model->save("face_model.xml");
+		cout << " Face model has been saved in face_model.xml" << endl;
+	}else{
+		model->load(argv[5]);
 	}
 
 	// That's it for learning the Face Recognition model. You now
@@ -187,7 +194,7 @@ int main(int argc, const char *argv[]) {
 		if( list_face_id.size()==LIST_BUFFER ){
 			int fit_num = 0;
 			while(iter!=list_face_id.end()){
-				if ( *iter == ADMIN_ID )
+				if ( *iter == admin_face_id )
 					fit_num++;
 				iter++;
 			}

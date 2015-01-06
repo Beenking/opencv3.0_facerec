@@ -31,10 +31,15 @@ int main(int argc, const char *argv[]) {
 	// Check for valid command line arguments, print usage
 	// if no arguments were given.
 	if (argc != 5) {
-		cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/face_filder> </path/to/device id>" << endl;
+		cout << "\t\t Please test and learn. Donnt use for commerial purpose."<< endl;
+		cout << "\t Any question about the exe .feel free email me bestheart@qq.com." << endl;
+		cout << endl;
+		cout << "usage: " << argv[0] << " </path/to/haar_cascade> </path/to/face_folder> </face/id> </path/to/device id>" << endl;
 		cout << "\t </path/to/haar_cascade> -- Path to the Haar Cascade for face detection." << endl;
 		cout << "\t </path/to/folder> -- Path to the face folder that you want to retain the faces picture." << endl;
-		cout << "\t <device id> -- The webcam device id to grab frames from." << endl;
+		cout << "\t <face id> -- The face id to identify who you are." << endl;
+		cout << "\t <device id> -- The webcam device id to grab frames from." << endl << endl;
+		cout << "\t for example: create_face_lib.exe data/haarcascade_frontalface_default.xml image/yxr_lab_face/ 110 0" << endl;
 		exit(1);
 	}
 	// Get the path:
@@ -44,7 +49,7 @@ int main(int argc, const char *argv[]) {
 	int deviceId = atoi(argv[4]);
 
 	// ofstream
-	ofstream output("../data/face_cap.txt");
+	ofstream output("face_cap.txt");
 
 	CascadeClassifier haar_cascade;
 	haar_cascade.load(fn_haar);
@@ -52,7 +57,7 @@ int main(int argc, const char *argv[]) {
 	VideoCapture cap(deviceId);
 	// Check if we can use this device at all:
 	if(!cap.isOpened()) {
-		cerr << "Capture Device ID " << deviceId << "cannot be opened." << endl;
+		cerr << "Capture Device ID " << deviceId << " cannot be opened." << endl;
 		return -1;
 	}
 	// Holds the current frame from the Video device:
@@ -84,7 +89,7 @@ int main(int argc, const char *argv[]) {
 			// Store the faces in your computer
 			char c[4];
 			itoa(num,c,10);
-			string s = face_lib + (string)c + ".jpg";
+			string s = face_lib + (string)c + ".png";
 			imwrite(s, face_resized);
 			cout << "Captruing the #" << num << "face" << endl;
 			output << s << ";" << face_id << endl;
